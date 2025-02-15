@@ -17,7 +17,7 @@
 
     <div class="flex flex-col items-center p-6">
         <h1 class="text-4xl font-bold pb-8">{ocData?.name}</h1>
-        <img src={ocData?.image} alt="" class="mb-4 h-1/3 w-1/3 object-contain" />
+        <img src={ocData?.image} alt="" class="mb-4 h-1/3 w-1/3 object-contain max-md:w-3/4" />
     </div>
 
 {:else}

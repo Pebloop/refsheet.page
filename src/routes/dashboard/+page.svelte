@@ -10,10 +10,12 @@
 
 <Header />
 
-<h1>Dashboard</h1>
-
 <div>
+    <h1>Dashboard</h1>
 
+    <div>
+
+    </div>
 </div>
 
 <a href="/new" class="rounded-xl dark:bg-white bg-gray-900 text-white dark:text-gray-900 p-2 fixed bottom-4 right-4">

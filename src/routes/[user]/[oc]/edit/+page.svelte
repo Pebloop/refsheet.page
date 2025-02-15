@@ -2,6 +2,7 @@
     import Header from "$lib/components/Header.svelte";
     import {onMount} from "svelte";
     import resize from 'resize-image-buffer';
+    import { imageSize } from 'image-size'
 
     export let data: any;
     const user = data.user;
@@ -24,8 +25,9 @@
 
         const imageArrayBuffer = await imageFile?.arrayBuffer();
         const imageBuffer = Buffer.from(imageArrayBuffer!);
+        const imageDimensions = imageSize(imageBuffer);
         const imageWidth = 200;
-        const imageHeight = imageFile?.size! / imageWidth;
+        const imageHeight = imageDimensions!.height! * (imageWidth / imageDimensions!.width!);
         const resizedImage = await resize(imageBuffer, {width: imageWidth, height: imageHeight});
         const newImage = new File([resizedImage], 'image.png', {type: 'image/png'});
 
@@ -83,8 +85,9 @@
 
         const imageArrayBuffer = await imageFile?.arrayBuffer();
         const imageBuffer = Buffer.from(imageArrayBuffer!);
+        const imageDimensions = imageSize(imageBuffer);
         const imageWidth = 200;
-        const imageHeight = imageFile?.size! / imageWidth;
+        const imageHeight = imageDimensions!.height! * (imageWidth / imageDimensions!.width!);
         const resizedImage = await resize(imageBuffer, {width: imageWidth, height: imageHeight});
         const newNewImage = new File([resizedImage], 'image.png', {type: 'image/png'});
 

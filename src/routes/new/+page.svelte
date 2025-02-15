@@ -1,5 +1,7 @@
 <script lang="ts">
     import Header from "$lib/components/Header.svelte";
+    import {imageSize} from "image-size";
+    import resize from "resize-image-buffer";
 
     let name = '';
     let image: FileList | null = null;
@@ -18,6 +20,14 @@
         const token = document.cookie.split(';').find(c => c.trim().startsWith('token='))?.split('=')[1];
         const imageFile = image?.item(0);
 
+        const imageArrayBuffer = await imageFile?.arrayBuffer();
+        const imageBuffer = Buffer.from(imageArrayBuffer!);
+        const imageDimensions = imageSize(imageBuffer);
+        const imageWidth = 200;
+        const imageHeight = imageDimensions!.height! * (imageWidth / imageDimensions!.width!);
+        const resizedImage = await resize(imageBuffer, {width: imageWidth, height: imageHeight});
+        const newImage = new File([resizedImage], 'image.png', {type: 'image/png'});
+
         if (!token) {
             alert('Not logged in');
             return;
@@ -25,7 +35,7 @@
 
         formData.append('token', token);
         formData.append('name', name);
-        formData.append('image', imageFile as Blob);
+        formData.append('image', newImage as Blob);
 
         const response = await fetch('/api/character', {
             method: 'POST',

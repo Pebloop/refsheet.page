@@ -42,7 +42,7 @@
         // store token in cookie
         if (result.success) {
             document.cookie = `token=${result.token}; path=/`;
-            window.location.href = '/dashboard';
+            window.location.href = '/' + result.user;
         }
 
     }

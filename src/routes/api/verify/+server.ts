@@ -37,5 +37,5 @@ export async function POST({ request }: { request: Request }) {
     const token = generateSessionToken();
     await createSession(user[0].id, token);
 
-    return new Response(JSON.stringify({ success: true, token }));
+    return new Response(JSON.stringify({ success: true, token, user: user[0].name}));
 }

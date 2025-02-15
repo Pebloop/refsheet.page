@@ -1,6 +1,6 @@
 <script lang="ts">
     import Header from "$lib/components/Header.svelte";
-    import {imageSize} from "image-size";
+    import sizeOf from "buffer-image-size";
     import resize from "resize-image-buffer";
 
     let name = '';
@@ -22,8 +22,8 @@
 
         const imageArrayBuffer = await imageFile?.arrayBuffer();
         const imageBuffer = Buffer.from(imageArrayBuffer!);
-        const imageDimensions = imageSize(imageBuffer);
-        const imageWidth = 200;
+        const imageDimensions = sizeOf(imageBuffer);
+        const imageWidth = 400;
         const imageHeight = imageDimensions!.height! * (imageWidth / imageDimensions!.width!);
         const resizedImage = await resize(imageBuffer, {width: imageWidth, height: imageHeight});
         const newImage = new File([resizedImage], 'image.png', {type: 'image/png'});

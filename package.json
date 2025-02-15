@@ -37,11 +37,11 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.744.0",
     "@oslojs/encoding": "^1.1.0",
+    "buffer-image-size": "^0.6.4",
     "cookie": "^1.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.38.4",
-    "image-size": "^1.2.0",
     "multer": "1.4.5-lts.1",
     "nodemailer": "^6.9.16",
     "nodemailer-brevo-transport": "^2.1.0",

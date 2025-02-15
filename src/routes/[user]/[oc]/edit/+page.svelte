@@ -2,7 +2,7 @@
     import Header from "$lib/components/Header.svelte";
     import {onMount} from "svelte";
     import resize from 'resize-image-buffer';
-    import { imageSize } from 'image-size'
+    import sizeOf from "buffer-image-size";
 
     export let data: any;
     const user = data.user;
@@ -18,15 +18,14 @@
     });
 
     const updateCharacter = async () => {
-
         const formData = new FormData();
         const token = document.cookie.split(';').find(c => c.trim().startsWith('token='))?.split('=')[1];
         const imageFile = image?.item(0);
 
         const imageArrayBuffer = await imageFile?.arrayBuffer();
         const imageBuffer = Buffer.from(imageArrayBuffer!);
-        const imageDimensions = imageSize(imageBuffer);
-        const imageWidth = 200;
+        const imageDimensions = sizeOf(imageBuffer);
+        const imageWidth = 400;
         const imageHeight = imageDimensions!.height! * (imageWidth / imageDimensions!.width!);
         const resizedImage = await resize(imageBuffer, {width: imageWidth, height: imageHeight});
         const newImage = new File([resizedImage], 'image.png', {type: 'image/png'});
@@ -79,14 +78,15 @@
     }
 
     const addImage = async () => {
+
         const formData = new FormData();
         const token = document.cookie.split(';').find(c => c.trim().startsWith('token='))?.split('=')[1];
         const imageFile = newImage?.item(0);
 
         const imageArrayBuffer = await imageFile?.arrayBuffer();
         const imageBuffer = Buffer.from(imageArrayBuffer!);
-        const imageDimensions = imageSize(imageBuffer);
-        const imageWidth = 200;
+        const imageDimensions = sizeOf(imageBuffer);
+        const imageWidth = 400;
         const imageHeight = imageDimensions!.height! * (imageWidth / imageDimensions!.width!);
         const resizedImage = await resize(imageBuffer, {width: imageWidth, height: imageHeight});
         const newNewImage = new File([resizedImage], 'image.png', {type: 'image/png'});

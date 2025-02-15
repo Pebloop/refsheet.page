@@ -1,4 +1,6 @@
 <script lang="ts">
+    import Header from "$lib/components/Header.svelte";
+
     export let data;
 
     const ocs = data.ocs;
@@ -6,6 +8,7 @@
 
 </script>
 
+<Header />
 
 <h1>Dashboard</h1>
 

@@ -18,6 +18,15 @@
     <div class="flex flex-col items-center p-6">
         <h1 class="text-4xl font-bold pb-8">{ocData?.name}</h1>
         <img src={ocData?.image} alt="" class="mb-4 h-1/3 w-1/3 object-contain max-md:w-3/4" />
+
+        <div class="flex flex-col items-center mt-10 bg-gray-700 p-6 rounded-2xl">
+            <h2 class="text-2xl font-bold pb-4">Gallery</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {#each ocData.gallery as image}
+                    <img src={image} alt="" class="w-52 h-52 object-contain" />
+                {/each}
+            </div>
+        </div>
     </div>
 
 {:else}

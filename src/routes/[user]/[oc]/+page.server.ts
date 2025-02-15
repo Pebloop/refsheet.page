@@ -1,4 +1,4 @@
-import {getOcFromNameAndUser} from "$lib/db";
+import {getGalleryOfOc, getOcFromNameAndUser} from "$lib/db";
 import { env } from '$env/dynamic/private'
 
 export const load = async (event: any) => {
@@ -9,9 +9,17 @@ export const load = async (event: any) => {
 
     let ocSharedData = null;
     if (ocData.length > 0) {
+        const gallery = await getGalleryOfOc(ocData[0].id);
+        const urls = [];
+
+        for (let i = 0; i < gallery.length; i++) {
+            urls.push(env.R2_URL + gallery[i].url);
+        }
+
         ocSharedData = {
             name: oc,
-            image: env.R2_URL + ocData[0].refsheet
+            image: env.R2_URL + ocData[0].refsheet,
+            gallery: urls
         }
     }
 

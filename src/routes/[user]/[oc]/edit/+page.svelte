@@ -1,6 +1,7 @@
 <script lang="ts">
     import Header from "$lib/components/Header.svelte";
     import {onMount} from "svelte";
+    import resize from 'resize-image-buffer';
 
     export let data: any;
     const user = data.user;
@@ -21,6 +22,14 @@
         const token = document.cookie.split(';').find(c => c.trim().startsWith('token='))?.split('=')[1];
         const imageFile = image?.item(0);
 
+        const imageArrayBuffer = await imageFile?.arrayBuffer();
+        const imageBuffer = Buffer.from(imageArrayBuffer!);
+        const imageWidth = 200;
+        const imageHeight = imageFile?.size! / imageWidth;
+        const resizedImage = await resize(imageBuffer, {width: imageWidth, height: imageHeight});
+        const newImage = new File([resizedImage], 'image.png', {type: 'image/png'});
+
+
         if (!token) {
             alert('Not logged in');
             return;
@@ -28,17 +37,18 @@
 
         formData.append('token', token);
         formData.append('name', name);
-        formData.append('image', imageFile as Blob);
+        formData.append('oiginalName', oc.name);
+        formData.append('image', newImage as Blob);
 
         const response = await fetch('/api/character', {
             method: 'PATCH',
             body: formData
         });
 
-        if (response.ok) {
+        if (response.ok && response.status === 200) {
             alert('Character updated');
         } else {
-            alert('Failed to create character');
+            alert('Failed to update character');
         }
     };
 
@@ -71,6 +81,13 @@
         const token = document.cookie.split(';').find(c => c.trim().startsWith('token='))?.split('=')[1];
         const imageFile = newImage?.item(0);
 
+        const imageArrayBuffer = await imageFile?.arrayBuffer();
+        const imageBuffer = Buffer.from(imageArrayBuffer!);
+        const imageWidth = 200;
+        const imageHeight = imageFile?.size! / imageWidth;
+        const resizedImage = await resize(imageBuffer, {width: imageWidth, height: imageHeight});
+        const newNewImage = new File([resizedImage], 'image.png', {type: 'image/png'});
+
         if (!token) {
             alert('Not logged in');
             return;
@@ -78,7 +95,7 @@
 
         formData.append('token', token);
         formData.append('name', name);
-        formData.append('image', imageFile as Blob);
+        formData.append('image', newNewImage as Blob);
 
         const response = await fetch('/api/character/gallery', {
             method: 'POST',

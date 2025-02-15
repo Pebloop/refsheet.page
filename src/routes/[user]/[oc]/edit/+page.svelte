@@ -37,7 +37,7 @@
 
         formData.append('token', token);
         formData.append('name', name);
-        formData.append('oiginalName', oc.name);
+        formData.append('originalName', oc.name);
         formData.append('image', newImage as Blob);
 
         const response = await fetch('/api/character', {

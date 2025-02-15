@@ -22,7 +22,7 @@ if (event.url.pathname.startsWith('/api')) {
   if (!event.locals.user) {
     // if the user is not logged in and tries to access a protected route
     // redirect them to the login page
-    if (event.url.pathname.startsWith('/new') || event.url.pathname.startsWith('/dashboard')) {
+    if (event.url.pathname.startsWith('/new')) {
       return new Response(null, {
         status: 302,
         headers: {
@@ -37,7 +37,7 @@ if (event.url.pathname.startsWith('/api')) {
         return new Response(null, {
             status: 302,
             headers: {
-                location: '/dashboard',
+                location: "/" + event.locals.user.name,
             },
         });
     }

@@ -40,6 +40,10 @@ export function getUserFromId(id: number) {
     return db.select().from(usersTable).where(eq(usersTable.id, id))
 }
 
+export function getUserFromName(name: string) {
+    return db.select().from(usersTable).where(eq(usersTable.name, name))
+}
+
 export function createUser(email: string, name: string) {
     return db.insert(usersTable).values({ email, name })
 }

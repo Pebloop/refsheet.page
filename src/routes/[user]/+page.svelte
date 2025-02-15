@@ -13,7 +13,7 @@
 </script>
 
 {#if user === loggedInUser.name}
-    <Header />
+    <Header user={user} />
 {/if}
 
 <div class="flex flex-col p-6 items-center">

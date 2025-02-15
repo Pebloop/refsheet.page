@@ -55,7 +55,7 @@
     }
 </script>
 
-<Header />
+<Header user={user.name} />
 
 <div class="flex justify-center p-6">
     <div class="flex flex-col p-6">

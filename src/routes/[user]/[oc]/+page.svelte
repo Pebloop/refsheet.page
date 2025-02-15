@@ -11,7 +11,7 @@
 {#if ocData !== null}
     {#if loggedInUser && user === loggedInUser.name}
         <div class="flex flex-row justify-end items-center p-4 text-white">
-            <a class="bg-blue-900 hover:bg-blue-600 rounded p-2" href="{user}/{oc}/edit">Edit</a>
+            <a class="bg-blue-900 hover:bg-blue-600 rounded p-2" href="/{user}/{oc}/edit">Edit</a>
         </div>
     {/if}
 

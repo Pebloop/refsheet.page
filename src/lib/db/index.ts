@@ -77,3 +77,7 @@ export async function getOcFromNameAndUser(name: string, userName: string) {
 export function createOc(user_id: number, name: string, refsheet: string) {
     return db.insert(ocsTable).values({ user_id, name, refsheet })
 }
+
+export function updateOc(id: number, name: string, refsheet: string) {
+    return db.update(ocsTable).set({ name, refsheet }).where(eq(ocsTable.id, id))
+}
